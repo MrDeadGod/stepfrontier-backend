@@ -1,14 +1,21 @@
-# Use an official Java runtime
+# Use an OpenJDK base image
 FROM eclipse-temurin:25-jdk-alpine
 
-# Set working directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy the JAR built by Maven
+# Copy Maven project files
+COPY pom.xml .
+COPY src ./src
+
+# Build the Spring Boot JAR
+RUN ./mvnw clean package -DskipTests
+
+# Copy the JAR to app folder
 COPY target/backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port Spring Boot runs on
+# Expose port 8080
 EXPOSE 8080
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the JAR
+ENTRYPOINT ["java","-jar","app.jar"]
