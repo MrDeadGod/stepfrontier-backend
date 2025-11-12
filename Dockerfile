@@ -1,5 +1,5 @@
 # Step 1: Build the JAR using Maven
-FROM maven:3.9.4-jdk-25 AS build
+FROM maven:3.9.4-jdk-20 AS build
 WORKDIR /app
 
 # Copy pom.xml and download dependencies
